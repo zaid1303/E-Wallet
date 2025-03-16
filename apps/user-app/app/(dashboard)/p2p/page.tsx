@@ -27,7 +27,11 @@ async function getOnp2ptransaction() {
     const txns = await prisma.p2pTransfer.findMany({
         where: {
             fromUserId: Number(session?.user?.id)
-        }
+        },
+        orderBy: {
+            timestamp: 'desc'
+        },
+        take: 10
     });
     return txns.map(t => ({
         timeStamp: t.timestamp,
@@ -42,7 +46,11 @@ async function getOnp2ptransactionCredit() {
     const txns = await prisma.p2pTransfer.findMany({
         where: {
             toUserId: Number(session?.user?.id)
-        }
+        },
+        orderBy: {
+            timestamp: 'desc'
+        },
+        take: 10
     });
     return txns.map(t => ({
         timeStamp: t.timestamp,

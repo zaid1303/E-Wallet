@@ -8,10 +8,10 @@ import { createOnRampTransaction } from "../app/lib/actions/createOnrampTransact
 
 const SUPPORTED_BANKS = [{
     name: "HDFC Bank",
-    redirectUrl: "https://netbanking.hdfcbank.com"
+    redirectUrl: "/transfer"
 }, {
     name: "Axis Bank",
-    redirectUrl: "https://www.axisbank.com/"
+    redirectUrl: "/transfer"
 }];
 
 export const AddMoney = () => {
