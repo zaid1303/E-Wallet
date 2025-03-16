@@ -1,5 +1,5 @@
 {
-    "buildCommand": "pwd && cd ../../packages/db && npm install && npx prisma generate && cd ../../apps/user-app && npm install && npm install --save-dev typescript @types/react @types/react-dom && npm run build",
-    "installCommand": "pwd && cd ../.. && npm install",
+    "buildCommand": "pwd && cd ../../packages/db && npm install && npx prisma generate && cd ../../apps/user-app && npm install --production=false && npm run build",
+    "installCommand": "pwd && cd ../.. && npm install --production=false",
     "framework": "nextjs"
   }
