@@ -1,5 +1,5 @@
 {
-    "buildCommand": "cd packages/db && npm install && npx prisma generate && cd ../../apps/user-app && npm install && npm install tailwindcss postcss autoprefixer --save-dev && npm run build",
+    "buildCommand": "pwd && ls -la && npm install && (cd ./packages/db && npm install && npx prisma generate) && (cd ./apps/user-app && npm install && npm install tailwindcss postcss autoprefixer --save-dev && npm run build)",
     "installCommand": "npm install",
     "framework": "nextjs"
-}
+  }
