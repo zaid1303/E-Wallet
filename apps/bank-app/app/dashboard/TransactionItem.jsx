@@ -10,8 +10,7 @@ export function TransactionItem({ transaction: t }) {
     async function approveTransaction() {
         try {
             setIsLoading(true);
-            console.log(t.token)
-            const response = await fetch("http://localhost:3003/hdfcWebhook", {
+            const response = await fetch("/api/approved-transaction", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
@@ -20,7 +19,6 @@ export function TransactionItem({ transaction: t }) {
                     amount: t.amount 
                 })
             });
-            
             if (response.ok) {
                 setStatus("Approved");
             } else {
