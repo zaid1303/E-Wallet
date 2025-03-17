@@ -6,6 +6,7 @@ import { useState } from 'react';
 export function TransactionItem({ transaction: t }) {
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState(t.status);
+    const [refreshNeeded, setRefreshNeeded] = useState(false);
 
     async function approveTransaction() {
         try {
@@ -21,8 +22,13 @@ export function TransactionItem({ transaction: t }) {
             });
             if (response.ok) {
                 setStatus("Approved");
+                // Signal that the page needs a refresh
+                setRefreshNeeded(true);
+                // Optional: Force a page refresh after a short delay
+                setTimeout(() => window.location.reload(), 1500);
             } else {
-                alert("Failed to approve transaction");
+                const errorData = await response.json();
+                alert(`Failed to approve transaction: ${errorData.message}`);
             }
         } catch (error) {
             console.error("Error approving transaction:", error);
@@ -43,8 +49,13 @@ export function TransactionItem({ transaction: t }) {
             
             if (response.ok) {
                 setStatus("Failure");
+                // Signal that the page needs a refresh
+                setRefreshNeeded(true);
+                // Optional: Force a page refresh after a short delay
+                setTimeout(() => window.location.reload(), 1500);
             } else {
-                alert("Failed to decline transaction");
+                const errorData = await response.json();
+                alert(`Failed to decline transaction: ${errorData.error}`);
             }
         } catch (error) {
             console.error("Error declining transaction:", error);
@@ -54,6 +65,8 @@ export function TransactionItem({ transaction: t }) {
         }
     }
 
+    // Rest of your component remains the same...
+    
     const statusColors = {
         Processing: {
             bg: "bg-yellow-100",
@@ -69,6 +82,11 @@ export function TransactionItem({ transaction: t }) {
             bg: "bg-red-100",
             text: "text-red-800",
             border: "border-red-200"
+        },
+        Success: { // Added to handle "Success"
+            bg: "bg-green-100",
+            text: "text-green-800",
+            border: "border-green-200"
         }
     };
 

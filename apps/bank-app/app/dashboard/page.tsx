@@ -1,10 +1,13 @@
-// BankTransactionsApprovalPage.jsx (Server Component)
 import prisma from "@repo/db/client";
 import { Card } from "@repo/ui/card";
 import { AppbarClient } from "../components/AppbarClient";
-import { TransactionItem } from "./TransactionItem"; // New client component
+import { TransactionItem } from "./TransactionItem";
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getOnRampTransactions() {
+    // This prevents the response from being cached
+    noStore();
+    
     const txns = await prisma.onRampTransaction.findMany({
         where: { status: "Processing" }
     });

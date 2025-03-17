@@ -6,6 +6,7 @@ export async function POST(request) {
   try {
     // Parse the request body
     const body = await request.json();
+    console.log("Received approval request:", body);
     
     const paymentInformation = {
       token: body.token,
@@ -19,7 +20,10 @@ export async function POST(request) {
       }
     });
     
+    console.log("Found transaction:", tx);
+    
     if (tx != null && tx.status === "Processing") {
+      console.log("Processing transaction approval...");
       await db.$transaction([
         db.balance.updateMany({
           where: {
@@ -41,16 +45,18 @@ export async function POST(request) {
         })
       ]);
       
+      console.log("Transaction approved successfully");
       return NextResponse.json({
         message: "Transaction approved successfully"
       }, { status: 200 });
     } else {
+      console.log("Transaction not eligible for approval:", tx?.status);
       return NextResponse.json({
         message: "Transaction not found or not in Processing state"
       }, { status: 400 });
     }
   } catch (e) {
-    console.error(e);
+    console.error("Error in approval process:", e);
     return NextResponse.json({
       message: "Error while processing transaction"
     }, { status: 500 });
