@@ -1,5 +1,5 @@
 {
     "buildCommand": "pwd && cd ../../packages/db && npm install && npx prisma generate && cd ../../apps/bank-app && npm install --production=false && npm run build",
-    "installCommand": "pwd && cd ../.. && npm install --production=false",
+    "installCommand": "pwd && cd ../.. && npm install",
     "framework": "nextjs"
   }
